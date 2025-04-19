@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Realty Horizon</title>
+  <link rel="stylesheet" href="realestate1.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <header class="hero" id="hero">
+
+        <div class="hero-bg">
+          <div class="overlay"></div>
+        </div>
+        <nav class="navbar">
+          <div class="logo">
+            <img src="Reality horizon.png" alt="Realty Horizon Logo" style="height: 40px; vertical-align: middle;" />
+            Realty Horizon
+          </div>
+          <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#properties">Properties</a></li>
+            <li><a href="#agents">Agents</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button class="signin-btn">Sign In</button></li>
+          </ul>
+          
+          <!-- User menu for logged in users -->
+          <div class="user-menu" id="userMenu">
+            <ul>
+              <li><a href="dashboard.html">My Profile</a></li>
+
+              <li><a href="#">Saved Properties</a></li>
+              <li><a href="#">My Tours</a></li>
+              <li><button id="logoutBtn">Logout</button></li>
+            </ul>
+          </div>
+        </nav>
+        <div class="hero-content">
+          <h1>Find Your Dream Home</h1>
+          <p>Discover the perfect property that suits your lifestyle with our extensive collection of homes, rentals, and commercial spaces.</p>
+          <div class="search-filters">
+            <select id="cityDropdown"><option>Loading cities...</option></select>
+            <select id="typeDropdown"><option>Loading types...</option></select>
+            <select id="priceDropdown"><option>Loading prices...</option></select>
+            <button onclick="handleSearch()">Search</button>
+          </div>
+        </div>
+    </header>
+
+    <section class="featured" id="properties">
+
+      <h2>Featured Properties</h2>
+      <div class="properties">
+        <div class="property-card">
+          <img src="Villa.png" alt="Villa">
+          <h3>Luxury Apartment in South Mumbai</h3>
+<p>Mumbai • Apartment</p>
+<p>₹21,50,00,000</p>
+<p>4 Bed • 3 Bath • 3200 sqft</p>
+<button>View Details</button>
+
+          <button class="ar-btn" onclick="openARTour('1', 'Modern Beachfront Villa')">AR Tour</button>
+        </div>
+        <div class="property-card">
+          <img src="Penthouse.png" alt="Penthouse">
+          <h3>Elegant Villa in North Goa</h3>
+<p>Goa • Villa</p>
+<p>₹8,75,00,000</p>
+<p>5 Bed • 4 Bath • 5000 sqft</p>
+<button>View Details</button>
+
+          <button class="ar-btn" onclick="openARTour('2', 'Luxury Downtown Penthouse')">AR Tour</button>
+        </div>
+        <div class="property-card">
+          <img src="Townhouse.png" alt="Townhouse">
+          <h3>Modern 3BHK Flat in Indiranagar</h3>
+<p>Bangalore • Apartment</p>
+<p>₹2,40,00,000</p>
+<p>3 Bed • 2 Bath • 1800 sqft</p>
+<button>View Details</button>
+
+          <button class="ar-btn" onclick="openARTour('3', 'Urban Townhouse')">AR Tour</button>
+        </div>
+      </div>
+    </section>
+    
+    
+    <section class="features" id = "features">
+      <h2>Why Choose Realty Horizon</h2>
+      <div class="feature-grid">
+        <div class="feature">Smart Property Search</div>
+        <div class="feature">Diverse Property Listings</div>
+        <div class="feature">Expert Real Estate Agents</div>
+        <div class="feature">Market Value Insights</div>
+        <div class="feature">Personalized Experience</div>
+        <div class="feature">Seamless Transactions</div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <h2>What Our Clients Say</h2>
+      <div class="testimonial-cards">
+        <div class="testimonial">"Working with Realty Horizon was a breeze. We found our dream home in days!"<br><strong>- Daniel & Susan</strong></div>
+        <div class="testimonial">"I sold my property faster than I expected. Professional and efficient."<br><strong>- Aditya Sharma</strong></div>
+        <div class="testimonial">"As a property investor, I trust Realty Horizon for every purchase."<br><strong>- Raj Mehta</strong></div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-content">
+        <h3>Ready to Find Your Dream Home?</h3>
+        <p>Contact our expert agents or browse our listings today.</p>
+        <div class="cta-buttons">
+          <button>Browse Properties</button>
+          <button class="secondary">Contact an Agent</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div>
+          <h4>Realty Horizon</h4>
+          <p>© 2025 Realty Horizon. All rights reserved.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Properties</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#">Rent</a></li>
+            <li><a href="#">Buy</a></li>
+            <li><a href="#">Commercial</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact Us</h4>
+          <p>123 Main Street, City</p>
+          <p>+91 12345 67890</p>
+          <p>info@realtyhorizon.com</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="auth-modal">
+      <div class="auth-modal-content">
+        <span class="auth-close">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" required>
+          </div>
+          <button type="submit" class="auth-btn">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="auth-modal">
+      <div class="auth-modal-content">
+        <span class="auth-close">&times;</span>
+        <h2>Register</h2>
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="registerUsername">Username</label>
+            <input type="text" id="registerUsername" required>
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">Email</label>
+            <input type="email" id="registerEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" required>
+          </div>
+          <button type="submit" class="auth-btn">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+      </div>
+    </div>
+
+    <!-- AR Modal -->
+    <div id="arModal" class="ar-modal">
+      <div class="ar-modal-content">
+        <span class="close" onclick="closeARTour()">&times;</span>
+        <h2 id="arTitle">AR Tour</h2>
+        <div id="arContainer" class="ar-container">
+          <div class="ar-loading">Loading 3D model...</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="realestate1.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<model-viewer src="public/models/villa.glb"
+              alt="Luxury Apartment in South Mumbai"
+              auto-rotate
+              camera-controls
+              ar
+              shadow-intensity="1"
+              style="width: 100%; height: 500px;">
+</model-viewer>
+
+</body>
+</html>

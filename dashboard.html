@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Dashboard | Realty Horizon</title>
+  <link rel="stylesheet" href="realestate1.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Realty Horizon</div>
+    <ul class="nav-links">
+      <li><a href="realestate1.html">Home</a></li>
+      <li><button onclick="logout()" class="signin-btn">Logout</button></li>
+    </ul>
+  </nav>
+
+  <section class="featured">
+    <h2>Welcome, <span id="username">User</span></h2>
+    <p>Email: <span id="email">user@example.com</span></p>
+  </section>
+
+  <section class="featured">
+    <h2>Saved Properties</h2>
+    <div id="savedProperties" class="properties">
+      <p>Loading your saved properties...</p>
+    </div>
+  </section>
+
+  <section class="featured">
+    <h2>My AR Tours</h2>
+    <div id="arTours" class="properties">
+      <p>Loading your AR history...</p>
+    </div>
+  </section>
+
+  <script>
+    const token = localStorage.getItem("authToken");
+    const user = JSON.parse(localStorage.getItem("userData"));
+
+    if (!token || !user) {
+      alert("Please log in first");
+      window.location.href = "realestate1.html";
+    } else {
+      document.getElementById("username").textContent = user.username;
+      document.getElementById("email").textContent = user.email;
+    }
+
+    function logout() {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userData");
+      window.location.href = "realestate1.html";
+    }
+
+    // Load Saved Properties
+    fetch("http://localhost:5000/api/user/saved", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("savedProperties");
+      container.innerHTML = data.length
+        ? data.map(p => `
+          <div class="property-card">
+            <img src="https://via.placeholder.com/300x200" alt="${p.title}">
+            <h3>${p.title}</h3>
+            <p>${p.city} • ${p.type}</p>
+            <p>${p.price}</p>
+            <button>View Details</button>
+          </div>`).join("")
+        : "<p>You haven't saved any properties yet.</p>";
+    });
+
+    // Load AR Tour History
+    fetch("http://localhost:5000/api/user/ar-tours", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("arTours");
+      container.innerHTML = data.length
+        ? data.map(p => `
+          <div class="property-card">
+            <img src="https://via.placeholder.com/300x200" alt="${p.title}">
+            <h3>${p.title}</h3>
+            <p>${p.city}</p>
+            <button onclick="window.location.href='realestate1.html#property-${p.id}'">Revisit AR Tour</button>
+          </div>`).join("")
+        : "<p>No AR tours yet.</p>";
+    });
+  </script>
+</body>
+</html>
